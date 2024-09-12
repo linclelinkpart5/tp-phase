@@ -3,6 +3,11 @@ enum Inner {
     Sub(u32),
 }
 
+enum AltInner {
+    Zero,
+    Quant(bool, u32),
+}
+
 impl Inner {
     fn to_f32(self) -> f32 {
         match self {
