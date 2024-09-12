@@ -15,3 +15,23 @@ impl Inner {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn to_f32() {
+        let i = Inner::Max;
+        assert_eq!(i.to_f32(), 1.0);
+
+        let i = Inner::Sub(0);
+        assert_eq!(i.to_f32(), 0.0);
+
+        let i = Inner::Sub(1 << (u32::BITS - 1));
+        assert_eq!(i.to_f32(), 0.5);
+
+        let i = Inner::Sub(1 << (u32::BITS - 2));
+        assert_eq!(i.to_f32(), 0.25);
+    }
+}
