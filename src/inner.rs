@@ -14,6 +14,17 @@ impl Inner {
             }
         }
     }
+
+    fn to_f64(self) -> f64 {
+        match self {
+            Self::Max => 1.0,
+            Self::Sub(0) => 0.0,
+            Self::Sub(n) => {
+                let den: f64 = (u32::MAX as f64) + 1.0;
+                n as f64 / den
+            }
+        }
+    }
 }
 
 #[cfg(test)]
