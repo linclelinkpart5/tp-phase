@@ -1,14 +1,16 @@
-enum Inner {
+struct InnerEx(u32);
+
+enum InnerIn {
     Max,
     Sub(u32),
 }
 
-enum AltInner {
+enum InnerPosNeg {
     Zero,
-    Quant(bool, u32),
+    Nonzero(bool, u32),
 }
 
-impl Inner {
+impl InnerIn {
     fn to_f32(self) -> f32 {
         match self {
             Self::Max => 1.0,
@@ -38,31 +40,31 @@ mod tests {
 
     #[test]
     fn to_f32() {
-        let i = Inner::Max;
+        let i = InnerIn::Max;
         assert_eq!(i.to_f32(), 1.0);
 
-        let i = Inner::Sub(0);
+        let i = InnerIn::Sub(0);
         assert_eq!(i.to_f32(), 0.0);
 
-        let i = Inner::Sub(1 << (u32::BITS - 1));
+        let i = InnerIn::Sub(1 << (u32::BITS - 1));
         assert_eq!(i.to_f32(), 0.5);
 
-        let i = Inner::Sub(1 << (u32::BITS - 2));
+        let i = InnerIn::Sub(1 << (u32::BITS - 2));
         assert_eq!(i.to_f32(), 0.25);
     }
 
     #[test]
     fn to_f64() {
-        let i = Inner::Max;
+        let i = InnerIn::Max;
         assert_eq!(i.to_f64(), 1.0);
 
-        let i = Inner::Sub(0);
+        let i = InnerIn::Sub(0);
         assert_eq!(i.to_f64(), 0.0);
 
-        let i = Inner::Sub(1 << (u32::BITS - 1));
+        let i = InnerIn::Sub(1 << (u32::BITS - 1));
         assert_eq!(i.to_f64(), 0.5);
 
-        let i = Inner::Sub(1 << (u32::BITS - 2));
+        let i = InnerIn::Sub(1 << (u32::BITS - 2));
         assert_eq!(i.to_f64(), 0.25);
     }
 }
